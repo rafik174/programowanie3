@@ -23,6 +23,7 @@ if((isset($_SESSION['zalogowany'])&&($_SESSION['zalogowany']==true))){
     <input type="submit" name="" id="Zaloguj się">
 
     <?php
+
     if(isset($_SESSION['blad'])) echo $_SESSION['blad'];
     ?>
 
