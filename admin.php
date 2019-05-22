@@ -18,7 +18,7 @@ if((isset($_SESSION['zalogowany'])&&($_SESSION['zalogowany']==true))){
 </head>
 <body>
 <form action="zaloguj.php" method="post">
-    Login: <br><input type="text" name="login" id="login"><br><br>
+    Login: <br><input type="text" name="login" ><br><br>
     Hasło: <br><input type="text" name="haslo" id="haslo"><br><br>
     <input type="submit" name="" id="Zaloguj się">
 

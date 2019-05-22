@@ -1,5 +1,6 @@
-<?php
 
+<?php
+require_once "config.php";
 function tworz_naglowek_html($tytul = '')
 {
 
@@ -18,13 +19,12 @@ function tworz_naglowek_html($tytul = '')
   <body>
 
 <?php
-  if($tytul)
-    tworz_tytul_html($tytul);
+
 }
 
 function tworz_stopke_html()
 {
-  // wyœwietlenie stopki HTML
+  // wyÅ›wietlenie stopki HTML
 ?>
   </body>
   </html>
@@ -33,7 +33,7 @@ function tworz_stopke_html()
 
 function tworz_tytul_html($naglowek)
 {
-  // wyœwietlenie nag³ówka
+  // wyÅ›wietlenie nagÅ‚Ã³wka
 ?>
   <h2><?php echo $naglowek; ?></h2>
 <?php
@@ -41,8 +41,32 @@ function tworz_tytul_html($naglowek)
 
 function tworz_html_url($url, $nazwa)
 {
-  // wyœwietlenie URL-a jako ³¹cza i nowa linia
+  // wyÅ›wietlenie URL-a jako Å‚Ä…cza i nowa linia
 ?>
   <a href="<?php echo $url; ?>"><?php echo $nazwa; ?></a><br />
 <?php
+}
+
+function lacz_bd()
+{
+    $wynik = new mysqli('localhost', 'raffal_opak', '8kul345ee53dJllaj', 'raffal_opak');
+    if (!$wynik)
+        return false;
+    $wynik->autocommit(TRUE);
+    $wynik->query("SET NAMES 'utf8'");
+    return $wynik;
+}
+function pobierz_dane_event($ide)
+{
+    // zapytanie bazy danych o wszystkie dane konkretnej ksiÄ…Å¼ki
+    if (!$ide || $ide =='')
+        return false;
+
+    $lacz = lacz_bd();
+    $zapytanie = "select * from wp_em_events, b_bilet where wp_em_events.event_id='$ide' and b_bilet.event_id='$ide'";
+    $wynik = @$lacz->query($zapytanie);
+    if (!$wynik)
+        return false;
+    $wynik = @$wynik->fetch_assoc();
+    return $wynik;
 }
