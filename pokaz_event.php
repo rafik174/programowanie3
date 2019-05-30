@@ -2,16 +2,14 @@
 session_start();
 include_once('funkcje_wyswietl.php');
 $ide = $_GET['ide'];
-echo $ide;
 $event=pobierz_dane_event($ide);
 tworz_naglowek_html('kup bilet na '.$event['event_name']);
 if (is_array($event))
 {
-    echo "<H1>Wybór biletów:</H1>";
-    echo $event['event_name'];
+    echo "<H1>Wybór biletów:</H1>";W
     ?>
 
-    <form id="rezerwacja" action="" method="post" ><fieldset>
+    <form id="rezerwacja" action="pokaz_kosz.php" method="post" ><fieldset>
   <?php  echo "<table>
 <thead>
 <tr>
@@ -24,10 +22,11 @@ if (is_array($event))
 <tbody>";
 
 
-        echo "<td>".$event['event_name']." </td><td>  ".$event['cena']."</td><td><input name='ilosc' value='0' type='text'></td><td>" ;
+        echo "<td><input type='hidden' name='ide' value='".$event['event_id']."'>".$event['event_name']." </td>
+<td>  ".$event['cena']."</td><td><input name='ilosc2' value='1' type='text'></td><td>" ;
 
         echo "</td></tr>";
-    
+
     echo "</table>";
 echo "<input type='submit' value='dalej'>";
 echo "</fieldset></form>";

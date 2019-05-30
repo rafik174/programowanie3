@@ -6,9 +6,10 @@ tworz_naglowek_html($tytul = 'Bilety na wydarzenia w miejscu X');
 
 $dblink = lacz_bd();
 
-$query = "SELECT * FROM wp_em_events, b_bilet where event_start_date>DATE_SUB(CURRENT_DATE, INTERVAL 1 year) and event_status=1 and wp_em_events.event_id=b_bilet.event_id";
+$query = "SELECT * FROM wp_em_events, b_bilet where event_start_date>DATE_SUB(CURRENT_DATE, INTERVAL 1 year) and event_status=1 and wp_em_events.event_id=b_bilet.event_id and b_bilet.ilosc > 0";
 $result= $dblink->query($query) or die ("Nie można wykonać polecenia: " . $dblink->error);
-echo "<H1>Repertuar:</H1>";
+
+
 echo "<table>
 <thead>
 <tr>

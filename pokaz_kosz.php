@@ -1,71 +1,53 @@
 <?php
-  require ('funkcje_ksiazka_kz.php');
+  require ('funkcje_wyswietl.php');
   // koszyk na zakupy potrzebuje sesji, zostaje więc ona rozpoczęta
   session_start();
+  @ $nowy = $_POST['ide'];;
+@ $ilosc2 = $_POST['ilosc2'];
 
-  @ $nowy = $_GET['nowy'];
+  if($nowy) {
+      // wybrany nowy produkt
+      if (!isset($_SESSION['koszyk'])) {
+          $_SESSION['koszyk'] = array();
+          $_SESSION['produkty'] = 0;
+          $_SESSION['calkowita_wartosc'] = '0.00';
+          echo "1";
+      }
 
-  if($nowy)
-  {
-    // wybrany nowy produkt
-    if(!isset($_SESSION['koszyk']))
-    {
-      $_SESSION['koszyk'] = array();
-      $_SESSION['produkty'] = 0;
-      $_SESSION['calkowita_wartosc'] ='0.00';
-    }
-    if(isset($_SESSION['koszyk'][$nowy]))
-      $_SESSION['koszyk'][$nowy]++;
-    else 
-      $_SESSION['koszyk'][$nowy] = 1;
-    $_SESSION['calkowita_wartosc'] =       
-                                      oblicz_wartosc($_SESSION['koszyk']);
-    $_SESSION['produkty'] = oblicz_produkty($_SESSION['koszyk']);
+      $_SESSION['koszyk'][$nowy] = $ilosc2;
+      $_SESSION['calkowita_wartosc'] = oblicz_wartosc($_SESSION['koszyk']);
+      $_SESSION['produkty'] = oblicz_produkty($_SESSION['koszyk']);
 
-  }
+  }echo $_POST['zapisz'];
   if(isset($_POST['zapisz']))
   {   
-    foreach ($_SESSION['koszyk'] as $isbn => $ilosc)
+    foreach ($_SESSION['koszyk'] as $ide => $ilosc)
     {
-      if($_POST[$isbn]=='0')
-        unset($_SESSION['koszyk'][$isbn]);
+      if($_POST[$ide]=='0')
+        unset($_SESSION['koszyk'][$ide]);
       else 
-        $_SESSION['koszyk'][$isbn] = $_POST[$isbn];
+        $_SESSION['koszyk'][$ide] = $_POST[$ide];
     }
-    $_SESSION['calkowita_wartosc'] = 
-oblicz_wartosc($_SESSION['koszyk']);
+    $_SESSION['calkowita_wartosc'] = oblicz_wartosc($_SESSION['koszyk']);
     $_SESSION['produkty'] = oblicz_produkty($_SESSION['koszyk']);
   }
+if(isset($_GET['usun'])){
+    foreach ($_SESSION['koszyk'] as $ide => $ilosc)
+    {
+        if($ide==($_GET['usun']))
+            unset($_SESSION['koszyk'][$ide]);
+        else "blad";
+
+    }
+
+}
 
   tworz_naglowek_html('Koszyk na zakupy');
 
-  if($_SESSION['koszyk']&&array_count_values($_SESSION['koszyk']))
-    wyswietl_koszyk($_SESSION['koszyk']);
-  else
-  {
-    echo '<p>Koszyk jest pusty</p>';
-    echo '<hr />';
-  }
-  $cel = 'indeks.php';
-
-  // jeżeli do koszyka został właśnie dodany przedmiot
-  // kontynuacja zakupów w danej kategorii
-  if($nowy)
-  {
-    $dane =  pobierz_dane_ksiazki($nowy);
-    if($dane['idkat'])    
-      $cel = 'pokaz_kat.php?idkat='.$dane['idkat']; 
-  }
-  wyswietl_przycisk($cel, 'kontynuacja', 'Kontynuacja zakupów');  
-
-  // poniższy kod należy zastosować, jeśli włączona jest obsługa SSL
-  // $sciezka = $_SERVER['PHP_SELF'];
-  // $serwer = $_SERVER['SERVER_NAME'];
-  // $sciezka = str_replace('pokaz_kat.php', '', $sciezka);
-  // wyswietl_przycisk('https://'.$serwer.$sciezka.'kasa.php', 'idz-do-kasy', 'Idź do kasy');  
-
-  // jeśli SSL nie działa, należy zastosować poniższy kod
-  wyswietl_przycisk('kasa.php', 'idz-do-kasy', 'Idź do kasy');  
+wyswietl_kosz($_SESSION['koszyk'], true);
+echo "<button><a href='kosz.php'>Idź do kasy</a></button>";
+echo "<button><a href='index.php'>kontynuuj zakupy</a></button>";
+  //wyswietl_przycisk('kasa.php', 'idz-do-kasy', 'Idź do kasy');
 
   
   tworz_stopke_html();
