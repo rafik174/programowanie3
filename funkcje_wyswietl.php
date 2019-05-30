@@ -14,10 +14,33 @@ function tworz_naglowek_html($tytul = '')
       li, td { font-family: Arial, Helvetica, sans-serif; font-size: 13px }
       hr { color: #FF0000; width=70%; text-align=center}
       a { color: #000000 }
+        nav a {margin: 10px 50px}
+        .zamowienia {
+            border-collapse: collapse;
+        }
+
+      .zamowienia  tr td,.zamowienia  tr th {
+        border: 1px solid black;
+          padding: 10px;
+      }
     </style>
   </head>
   <body>
 
+<?php
+
+}
+function tworz_menu_admina($admin)
+{
+    require_once "config.php";
+    tworz_naglowek_html('panel admina');
+?><p>zalogowany jako:<?php echo $admin;?></p>
+    <nav >
+    <a href="dodaj_bilet.php">dodaj bilet</a>
+    <a href="aktywne_bilety.php">przeglądaj aktywne bilety</a>
+        <a href="zamowienia.php">przeglądaj aktywne zamówienia</a>
+    <a href="logout.php" style="float: right">wyloguj</a>
+</nav>
 <?php
 
 }
@@ -185,19 +208,19 @@ function wyswietl_form_kasy()
             <tr><th colspan = 2 bgcolor="#cccccc">Dane klienta:</th></tr>
             <tr>
                 <td>Imię</td>
-                <td><input type = hidden name = imie value = "aaaah" maxlength = 40 size = 40></td>
+                <td><input type = text name = imie value = "" maxlength = 40 size = 40></td>
             </tr>
             <tr>
                 <td>Nazwisko</td>
-                <td><input type = hidden name = nazwisko value = "afa" maxlength = 40 size = 40></td>
+                <td><input type = text name = nazwisko value = "" maxlength = 40 size = 40></td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td><input type = hidden name = email value = "kubabernacki1@gmail.com"  size = 40></td>
+                <td><input type = text name = email value = ""  size = 40></td>
             </tr>
             <tr>
                 <td>Telefon</td>
-                <td><input type = hidden name = telefon value = "aa" maxlength = 20 size = 40></td>
+                <td><input type = text name = telefon value = "" maxlength = 20 size = 40></td>
             </tr>
             <tr>
                 <td colspan = 2 align = center>

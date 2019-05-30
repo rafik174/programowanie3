@@ -4,13 +4,8 @@ if(!isset($_SESSION['zalogowany'])){
     header('Location: admin.php');
     exit();
 }
-
-require_once "config.php";
-include_once('funkcje_wyswietl.php');
-tworz_naglowek_html('panel admina');
-echo "<a href='logout.php'>wyloguj</a>";
-echo "<h2>Witaj ".$_SESSION['user'].'</h2>';
-echo '<a href="dodaj_bilet.php">dodaj bilet</a>';
+include_once('funkcje_wyswietl.php');;
+tworz_menu_admina($_SESSION['user']);
 $dblink = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD) or die("Could not
 connect: " );
 $dblink->query("SET NAMES 'utf8'");

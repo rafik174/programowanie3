@@ -6,7 +6,7 @@ $event=pobierz_dane_event($ide);
 tworz_naglowek_html('kup bilet na '.$event['event_name']);
 if (is_array($event))
 {
-    echo "<H1>Wybór biletów:</H1>";W
+    echo "<H1>Wybór biletów:</H1>";
     ?>
 
     <form id="rezerwacja" action="pokaz_kosz.php" method="post" ><fieldset>

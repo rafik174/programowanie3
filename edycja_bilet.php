@@ -4,11 +4,8 @@ if(!isset($_SESSION['zalogowany'])){
     header('Location: admin.php');
     exit();
 }
-
-require_once "config.php";
-include_once('funkcje_wyswietl.php');
-tworz_naglowek_html('Bilet dodany');
-echo "<a href='logout.php'>wyloguj</a>";
+include_once('funkcje_wyswietl.php');;
+tworz_menu_admina($_SESSION['user']);
 
 
 

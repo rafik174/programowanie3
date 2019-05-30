@@ -4,12 +4,11 @@ if(!isset($_SESSION['zalogowany'])){
     header('Location: admin.php');
     exit();
 }
+include_once('funkcje_wyswietl.php');;
+tworz_menu_admina($_SESSION['user']);
 
-require_once "config.php";
-include_once('funkcje_wyswietl.php');
-tworz_naglowek_html('Dodaj bilet');
-echo "<a href='logout.php'>wyloguj</a>";
 ?>
+
   <form action="edycja_bilet.php" method="post">
   <table border='0'>
   <tr>
